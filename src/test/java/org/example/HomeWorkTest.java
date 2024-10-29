@@ -5,14 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
-import static org.example.Action.destroy;
-import static org.example.Action.look;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class HomeWorkTest {
@@ -27,8 +22,15 @@ class HomeWorkTest {
     }
 
     @Test
-    void checkSecond(){
-        assertEquals(asList("3 1 5 2 4".split(" ")), homeWork.getLeaveOrder(5, 3));
+    void checkSecond() {
+        assertEquals(Arrays.stream("3 1 5 2 4".split(" ")).map(Integer::parseInt).collect(Collectors.toList())
+                , homeWork.getLeaveOrder(5, 3));
+    }
+
+    @Test
+    void checkSecondAnother() {
+        assertEquals(Arrays.stream("2 4 3 1".split(" ")).map(Integer::parseInt).collect(Collectors.toList())
+                , homeWork.getLeaveOrder(4, 2));
     }
 
 

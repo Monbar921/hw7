@@ -1,9 +1,20 @@
 package org.example;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 
 public class HomeWork {
+    private final HarryPotterCastle harryPotterCastle;
+
+    public HomeWork() {
+        this.harryPotterCastle = new HarryPotterCastle();
+    }
 
     /**
      * <h1>Задание 1.</h1>
@@ -11,7 +22,22 @@ public class HomeWork {
      * <a href="https://acm.timus.ru/problem.aspx?space=1&num=1439">https://acm.timus.ru/problem.aspx?space=1&num=1439</a>
      */
     public List<Integer> getOriginalDoorNumbers(int maxDoors, List<Action> actionList) {
-        return null;
+        List<Integer> doorNumbers = new ArrayList<>();
+
+        for (int i = 0; i < maxDoors; ++i){
+            harryPotterCastle.add();
+        }
+
+        for (Action action : actionList){
+            if(action.isLook){
+                int doorNumber = harryPotterCastle.findRoom(action.doorNumber);
+                doorNumbers.add(doorNumber);
+            }else {
+                harryPotterCastle.remove(action.doorNumber);
+            }
+        }
+
+        return doorNumbers;
     }
 
     /**
@@ -28,7 +54,37 @@ public class HomeWork {
      * _ <b>4</b> => 4
      */
     public List<Integer> getLeaveOrder(int maxUnits, int leaveInterval) {
-        return null;
+            List<Integer> soldiersOrder = new ArrayList<>();
+
+            List<Integer> soldiers = new LinkedList<>();
+            for (int i = 1; i <= maxUnits; i++) {
+                soldiers.add(i);
+            }
+
+            ListIterator<Integer> iterator = soldiers.listIterator();
+
+            while (soldiers.size() > 0) {
+                if (!iterator.hasNext()) {
+                    iterator = soldiers.listIterator();
+                }
+                for (int i = 0; i < leaveInterval; i++) {
+                    if (!iterator.hasNext()) {
+                        iterator = soldiers.listIterator();
+                    }
+                    iterator.next();
+                }
+
+                int removedSoldier = iterator.previous();
+                soldiersOrder.add(removedSoldier);
+                iterator.remove();
+
+                if (!iterator.hasNext()) {
+                    iterator = soldiers.listIterator();
+                }
+            }
+
+            return soldiersOrder;
+
     }
 
 }
